@@ -1,66 +1,73 @@
-import React, { Component } from "react";
-import css from './app.module.css'
+import React, { Component } from 'react';
+
+import { Section } from './section/section.js';
+import { FeedbackOptions } from './feedbackOptions/feedbackOptions.js';
+import { Statistics } from './statistics/statistics.js';
+import { Notification } from './Notification/Notification.js';
 
 export class App extends Component {
   state = {
     good: 0,
     neutral: 0,
-    bad: 0
+    bad: 0,
   };
 
   addFeedbackPointGood = () => {
     this.setState(state => ({
-      good: state.good + 1
-    }))
+      good: state.good + 1,
+    }));
   };
 
   addFeedbackPointNeutral = () => {
     this.setState(state => ({
-      neutral: state.neutral + 1
-    }))
+      neutral: state.neutral + 1,
+    }));
   };
 
   addFeedbackPointBad = () => {
     this.setState(state => ({
-      bad: state.bad + 1
-    }))
+      bad: state.bad + 1,
+    }));
   };
 
-  totalFeedbacl = () => {
-    const total = this.setState(state => ({
-      good: state.good + 1
-    }));
-    return total
-    
+  countTotalFeedback() {
+    return this.state.good + this.state.bad + this.state.neutral;
   }
 
-
+  countPositiveFeedbackPercentage() {
+    return this.countTotalFeedback()
+      ? ((this.state.good * 100) / this.countTotalFeedback()).toFixed()
+      : 0;
+  }
 
   render() {
     const { good, neutral, bad } = this.state;
-    const total = good + bad + neutral;
     return (
       <>
-        <h2>Please leave feedback</h2>
-        <div style={css.div}>
-          <button type="button" onClick={this.addFeedbackPointGood}>Good</button>
-          <button type="button" onClick={this.addFeedbackPointNeutral}>Neutral</button>
-          <button type="button" onClick={this.addFeedbackPointBad}>Bad</button>
-        </div>
-        <h2>Statistics</h2>
+        <Section title="Please leave feedback">
+          <FeedbackOptions
+            onLeaveFeedback={[
+              this.addFeedbackPointGood,
+              this.addFeedbackPointNeutral,
+              this.addFeedbackPointBad,
+            ]}
+          />
+        </Section>
 
-        <ul>
-          <li>Good: {this.state.good }</li>
-          <li>Neutral: {this.state.neutral}</li>
-          <li>Bad: {this.state.bad}</li>
-          <li>Total: {total}</li>
-          <li>Positive fedback: { total ? (good * 100 / total).toFixed()  : 0 }%</li>
-        </ul>
-        
-        
-
+        <Section title="Statistics">
+          {this.countTotalFeedback() ? (
+            <Statistics
+              good={good}
+              neutral={neutral}
+              bad={bad}
+              total={this.countTotalFeedback()}
+              positivePercentage={this.countPositiveFeedbackPercentage()}
+            />
+          ) : (
+            <Notification message={'There is no feedback'} />
+          )}
+        </Section>
       </>
-    )
+    );
   }
 }
-

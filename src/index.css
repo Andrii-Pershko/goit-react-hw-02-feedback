@@ -8,6 +8,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: black;
+  color: #fff;
 }
 
 code {
@@ -23,3 +25,5 @@ ul {
 body {
   padding-left: 25px;
 }
+
+section {}
