@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import css from './statistics.module.css';
 
 export const Statistics = ({
   bad,
