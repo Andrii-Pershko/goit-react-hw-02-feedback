@@ -24,3 +24,4 @@ Statistics.propTypes = {
 };
 
 export default Statistics;
+
