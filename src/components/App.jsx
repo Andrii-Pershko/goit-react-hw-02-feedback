@@ -12,22 +12,27 @@ export class App extends Component {
     bad: 0,
   };
 
-  addFeedbackPointGood = () => {
-    this.setState(state => ({
-      good: state.good + 1,
-    }));
-  };
+  addFedbackPoint = ({ target }) => {
+    if (target.name === 'good') {
+      this.setState(state => ({
+        good: state.good + 1,
+      }));
+      return;
+    }
 
-  addFeedbackPointNeutral = () => {
-    this.setState(state => ({
-      neutral: state.neutral + 1,
-    }));
-  };
+    if (target.name === 'neutral') {
+      this.setState(state => ({
+        neutral: state.neutral + 1,
+      }));
+      return;
+    }
 
-  addFeedbackPointBad = () => {
-    this.setState(state => ({
-      bad: state.bad + 1,
-    }));
+    if (target.name === 'bad') {
+      this.setState(state => ({
+        bad: state.bad + 1,
+      }));
+      return;
+    }
   };
 
   countTotalFeedback() {
@@ -46,11 +51,8 @@ export class App extends Component {
       <>
         <Section title="Please leave feedback">
           <FeedbackOptions
-            onLeaveFeedback={[
-              this.addFeedbackPointGood,
-              this.addFeedbackPointNeutral,
-              this.addFeedbackPointBad,
-            ]}
+            option={this.state}
+            onLeaveFeedback={this.addFedbackPoint}
           />
         </Section>
 
