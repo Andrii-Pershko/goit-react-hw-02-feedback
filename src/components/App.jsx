@@ -13,26 +13,9 @@ export class App extends Component {
   };
 
   addFedbackPoint = ({ target }) => {
-    if (target.name === 'good') {
-      this.setState(state => ({
-        good: state.good + 1,
-      }));
-      return;
-    }
-
-    if (target.name === 'neutral') {
-      this.setState(state => ({
-        neutral: state.neutral + 1,
-      }));
-      return;
-    }
-
-    if (target.name === 'bad') {
-      this.setState(state => ({
-        bad: state.bad + 1,
-      }));
-      return;
-    }
+    this.setState(state => ({
+      [target.name]: state[target.name] + 1,
+    }));
   };
 
   countTotalFeedback() {
